@@ -1,24 +1,35 @@
 .cell {
   width: 25px;
   height: 25px;
-  border: 1px solid rgb(175, 216, 248);
-  display: inline-block;
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-flex;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
 }
 
 .startZone {
   background-color: rgb(255, 247, 0);
 }
 
+.innerDiv {
+  width: 90%;
+  height: 90%;
+}
+
+.obstacle {
+  background-color: rgb(175, 216, 248);
+}
+
 .n {
-  border-top: 1px solid rgb(255, 0, 204);
+  border-top: 5px solid rgb(255, 0, 204);
 }
 .e {
-  border-right: 1px solid rgb(255, 0, 204);
+  border-right: 5px solid rgb(255, 0, 204);
 }
 .s {
-  border-bottom: 1px solid rgb(255, 0, 204);
+  border-bottom: 5px solid rgb(255, 0, 204);
 }
 .w {
-  border-left: 1px solid rgb(255, 0, 204);
+  border-left: 5px solid rgb(255, 0, 204);
 }

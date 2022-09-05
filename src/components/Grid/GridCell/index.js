@@ -3,39 +3,47 @@ import styles from './styles.module.css';
 
 import cx from 'classnames';
 
-const facing = { 1: 'n', 2: 'e', 3: 's', 4: 'w' };
+const facing = { 1: 'north', 2: 'east', 3: 'south', 4: 'west' };
 
-const GridCell = ({ onClick, row, col }) => {
+const isStartZone = (row, col) => {
+  return row >= 16 && col <= 3;
+};
+
+const GridCell = ({ onClick, row, col, obstacleFacing = null }) => {
   const [clickedTimes, setClickedTimes] = React.useState(0);
 
-  const [obstacleFacing, setObstacleFacing] = React.useState(null);
-
-  React.useEffect(() => {
-    if (clickedTimes >= 1 && clickedTimes <= 4) {
-      setObstacleFacing(facing[clickedTimes % 4]);
-    } else {
-      setObstacleFacing(null);
-    }
-  }, [clickedTimes]);
-
   const handleOnClick = () => {
-    onClick();
-    setClickedTimes((clickedTimes + 1) % 5);
-    console.log('clicked (', row, ', ', col, ')', 'times: ', clickedTimes);
+    if (!isStartZone(row, col)) {
+      setClickedTimes((clickedTimes + 1) % 5);
+      onClick(row, col, facing[(clickedTimes + 1) % 5] ?? null);
+    }
+  };
+
+  const handleOnRightClick = (e) => {
+    e.preventDefault();
+    setClickedTimes(0);
+    onClick(row, col, null);
   };
 
   return (
     <td
       id={`${row}-${col}`}
       className={cx(styles.cell, {
-        [styles.startZone]: row >= 16 && col <= 3,
-        [styles.n]: obstacleFacing === 'n',
-        [styles.e]: obstacleFacing === 'e',
-        [styles.s]: obstacleFacing === 's',
-        [styles.w]: obstacleFacing === 'w',
+        [styles.startZone]: isStartZone(row, col),
+        [styles.obstacle]: obstacleFacing !== null,
       })}
       onClick={handleOnClick}
-    />
+      onContextMenu={handleOnRightClick}
+    >
+      <div
+        className={cx(styles.innerDiv, {
+          [styles.n]: obstacleFacing === 'north',
+          [styles.e]: obstacleFacing === 'east',
+          [styles.s]: obstacleFacing === 'south',
+          [styles.w]: obstacleFacing === 'west',
+        })}
+      ></div>
+    </td>
   );
 };
 
