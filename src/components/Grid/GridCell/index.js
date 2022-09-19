@@ -6,7 +6,7 @@ import cx from 'classnames';
 const facing = { 1: 'north', 2: 'east', 3: 'south', 4: 'west' };
 
 const isStartZone = (row, col) => {
-  return row >= 16 && col <= 3;
+  return row <= 3 && col <= 3;
 };
 
 const GridCell = ({ onClick, row, col, obstacleFacing = null }) => {

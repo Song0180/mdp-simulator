@@ -2,9 +2,26 @@
   margin: 20px;
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+
+.gridContainer {
+  position: relative;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+@media only screen and (max-width: 1400px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .info {
   width: 40%;
+  margin: 2rem;
 }

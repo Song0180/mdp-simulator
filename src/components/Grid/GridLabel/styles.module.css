@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.col {
+  flex-direction: column-reverse;
+  position: absolute;
+  top: 0;
+  left: -25px;
+}
+
+.number {
+  width: 25px;
+  height: 25px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
