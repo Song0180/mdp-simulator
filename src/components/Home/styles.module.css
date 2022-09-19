@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .dragger {
@@ -13,4 +13,8 @@
 
 .button {
   margin: 1rem;
+}
+
+.textArea {
+  width: 500px;
 }

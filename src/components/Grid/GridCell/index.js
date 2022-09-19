@@ -9,7 +9,13 @@ const isStartZone = (row, col) => {
   return row <= 3 && col <= 3;
 };
 
-const GridCell = ({ onClick, row, col, obstacleFacing = null }) => {
+const GridCell = ({
+  onClick,
+  row,
+  col,
+  obstacleFacing = null,
+  isPath = false,
+}) => {
   const [clickedTimes, setClickedTimes] = React.useState(0);
 
   const handleOnClick = () => {
@@ -31,6 +37,7 @@ const GridCell = ({ onClick, row, col, obstacleFacing = null }) => {
       className={cx(styles.cell, {
         [styles.startZone]: isStartZone(row, col),
         [styles.obstacle]: obstacleFacing !== null,
+        [styles.path]: isPath,
       })}
       onClick={handleOnClick}
       onContextMenu={handleOnRightClick}

@@ -1,15 +1,24 @@
 import React from 'react';
+import { Button } from 'antd';
+
 import GridCell from './GridCell';
 import GridLabel from './GridLabel';
-import { Button } from 'antd';
+import Robot from '../Robot';
 
 import styles from './styles.module.css';
 
 const rowCount = 20;
 const colCount = 20;
 
-const Grid = () => {
+const Grid = ({ pathData }) => {
   const [obstacles, setObstacles] = React.useState(new Map());
+  const [path, setPath] = React.useState(new Set());
+
+  React.useEffect(() => {
+    if (pathData) {
+      setPath(pathData);
+    }
+  }, [pathData]);
 
   const grid = React.useMemo(() => {
     const initialGrid = [];
@@ -54,6 +63,7 @@ const Grid = () => {
                         key={nodeIdx}
                         col={col}
                         row={row}
+                        isPath={path.has(`${col},${row}`)}
                         onClick={handleOnCreateObstacle}
                         obstacleFacing={obstacles.get(`${col}, ${row}`) ?? null}
                       />
@@ -66,6 +76,7 @@ const Grid = () => {
         </table>
         <GridLabel direction='row' />
         <GridLabel direction='col' />
+        <Robot />
       </div>
 
       <div className={styles.info}>
