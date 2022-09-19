@@ -2,5 +2,13 @@
   "passingGrids": [
     [1, 1],
     [1, 2]
+  ],
+  "obstacleGrids": [
+    [1, 18, "south", 1],
+    [6, 12, "north", 2],
+    [10, 7, "east", 3],
+    [13, 2, "east", 4],
+    [15, 16, "west", 5],
+    [19, 9, "west", 6]
   ]
 }

@@ -9,16 +9,14 @@ const { TextArea } = Input;
 const Home = () => {
   const [pathStr, setPathStr] = React.useState('');
   const [pathSet, setPathSet] = React.useState(new Set());
-
-  console.log('pathSet', pathSet);
+  const [obstacleMap, setObstacleMap] = React.useState(new Map());
 
   const onClickShow = () => {
     try {
-      const pathObj = JSON.parse(pathStr);
-      console.log('pathObj', pathObj);
-      const girdPositions = pathObj.passingGrids;
-      console.log('girdPositions', girdPositions);
-      for (const position of girdPositions) {
+      const jsonObj = JSON.parse(pathStr);
+      const pathGrids = jsonObj.passingGrids;
+
+      for (const position of pathGrids) {
         const [x, y] = position;
         setPathSet((pathSet) => {
           const newPathSet = new Set(pathSet);
@@ -26,6 +24,18 @@ const Home = () => {
           return newPathSet;
         });
       }
+
+      const obstacleGrids = jsonObj.obstacleGrids;
+      for (const obstacle of obstacleGrids) {
+        const [x, y, facing, obNumber] = obstacle;
+        setObstacleMap((obstacleMap) => {
+          const newObstacleMap = new Map(obstacleMap);
+          newObstacleMap.set(`${x}, ${y}`, { facing, obNumber });
+          return newObstacleMap;
+        });
+      }
+
+      message.success('Path is shown on the grid');
     } catch (e) {
       message.error('Invalid JSON');
     }
@@ -34,13 +44,18 @@ const Home = () => {
   const onClearPath = () => {
     setPathStr('');
     setPathSet(new Set());
+    setObstacleMap(new Map());
+    message.success('Path is cleared');
   };
 
   return (
     <div className={styles.home}>
       <h1>MDP Algorithm Simulator</h1>
       <p>Author: Song Yu</p>
-      <Grid pathData={pathSet} />
+      <Grid
+        pathData={pathSet}
+        obstacleData={obstacleMap.size ? obstacleMap : null}
+      />
       <div>
         <Button
           type='primary'

@@ -10,9 +10,17 @@ import styles from './styles.module.css';
 const rowCount = 20;
 const colCount = 20;
 
-const Grid = ({ pathData }) => {
+const Grid = ({ pathData, obstacleData }) => {
   const [obstacles, setObstacles] = React.useState(new Map());
   const [path, setPath] = React.useState(new Set());
+
+  React.useEffect(() => {
+    if (obstacleData) {
+      setObstacles(obstacleData);
+    } else {
+      handleOnClear();
+    }
+  }, [obstacleData]);
 
   React.useEffect(() => {
     if (pathData) {
@@ -36,7 +44,7 @@ const Grid = ({ pathData }) => {
     setObstacles((obstacles) => {
       const newObstacles = new Map(obstacles);
       if (obstacleFacing) {
-        newObstacles.set(`${col}, ${row}`, obstacleFacing);
+        newObstacles.set(`${col}, ${row}`, { facing: obstacleFacing });
       } else {
         newObstacles.delete(`${col}, ${row}`);
       }
@@ -65,7 +73,16 @@ const Grid = ({ pathData }) => {
                         row={row}
                         isPath={path.has(`${col},${row}`)}
                         onClick={handleOnCreateObstacle}
-                        obstacleFacing={obstacles.get(`${col}, ${row}`) ?? null}
+                        obNumber={
+                          obstacles.get(`${col}, ${row}`)
+                            ? obstacles.get(`${col}, ${row}`).obNumber
+                            : null
+                        }
+                        obstacleFacing={
+                          obstacles.get(`${col}, ${row}`)
+                            ? obstacles.get(`${col}, ${row}`).facing
+                            : null
+                        }
                       />
                     );
                   })}
@@ -83,7 +100,9 @@ const Grid = ({ pathData }) => {
         <h3>Obstacles</h3>
 
         {Array.from(obstacles).map(([key, value]) => {
-          return <div key={key}>{`Obstacle at (${key}) facing ${value}`}</div>;
+          return (
+            <div key={key}>{`Obstacle at (${key}) facing ${value.facing}`}</div>
+          );
         })}
         {obstacles.size > 0 && (
           <Button type='primary' danger onClick={handleOnClear}>
