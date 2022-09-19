@@ -27,9 +27,9 @@ const Grid = () => {
     setObstacles((obstacles) => {
       const newObstacles = new Map(obstacles);
       if (obstacleFacing) {
-        newObstacles.set(`${row}, ${col}`, obstacleFacing);
+        newObstacles.set(`${col}, ${row}`, obstacleFacing);
       } else {
-        newObstacles.delete(`${row}, ${col}`);
+        newObstacles.delete(`${col}, ${row}`);
       }
       return newObstacles;
     });
@@ -55,7 +55,7 @@ const Grid = () => {
                         col={col}
                         row={row}
                         onClick={handleOnCreateObstacle}
-                        obstacleFacing={obstacles.get(`${row}, ${col}`) ?? null}
+                        obstacleFacing={obstacles.get(`${col}, ${row}`) ?? null}
                       />
                     );
                   })}
