@@ -15,7 +15,7 @@ const GridCell = ({
   col,
   obstacleFacing = null,
   isPath = false,
-  obNumber = null,
+  obIdentifier = null,
 }) => {
   const [clickedTimes, setClickedTimes] = React.useState(0);
 
@@ -51,7 +51,7 @@ const GridCell = ({
           [styles.w]: obstacleFacing === 'west',
         })}
       >
-        {obNumber}
+        {obIdentifier}
       </div>
     </td>
   );

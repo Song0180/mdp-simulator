@@ -73,7 +73,7 @@ const Grid = ({ pathData, obstacleData }) => {
                         row={row}
                         isPath={path.has(`${col},${row}`)}
                         onClick={handleOnCreateObstacle}
-                        obNumber={
+                        obIdentifier={
                           obstacles.get(`${col}, ${row}`)
                             ? obstacles.get(`${col}, ${row}`).obNumber
                             : null

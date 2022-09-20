@@ -14,7 +14,7 @@ const Home = () => {
   const onClickShow = () => {
     try {
       const jsonObj = JSON.parse(pathStr);
-      const pathGrids = jsonObj.passingGrids;
+      const pathGrids = JSON.parse(jsonObj.passingGrids);
 
       for (const position of pathGrids) {
         const [x, y] = position;
@@ -25,7 +25,7 @@ const Home = () => {
         });
       }
 
-      const obstacleGrids = jsonObj.obstacleGrids;
+      const obstacleGrids = JSON.parse(jsonObj.obstacleGrids);
       for (const obstacle of obstacleGrids) {
         const [x, y, facing, obNumber] = obstacle;
         setObstacleMap((obstacleMap) => {
