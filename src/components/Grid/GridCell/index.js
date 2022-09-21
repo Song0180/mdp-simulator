@@ -16,6 +16,7 @@ const GridCell = ({
   obstacleFacing = null,
   isPath = false,
   obIdentifier = null,
+  isRobot = false,
 }) => {
   const [clickedTimes, setClickedTimes] = React.useState(0);
 
@@ -39,6 +40,7 @@ const GridCell = ({
         [styles.startZone]: isStartZone(row, col),
         [styles.obstacle]: obstacleFacing !== null,
         [styles.path]: isPath,
+        [styles.robot]: isRobot,
       })}
       onClick={handleOnClick}
       onContextMenu={handleOnRightClick}

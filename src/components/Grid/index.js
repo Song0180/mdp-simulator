@@ -3,16 +3,17 @@ import { Button } from 'antd';
 
 import GridCell from './GridCell';
 import GridLabel from './GridLabel';
-import Robot from '../Robot';
+// import Robot from '../Robot';
 
 import styles from './styles.module.css';
 
 const rowCount = 20;
 const colCount = 20;
 
-const Grid = ({ pathData, obstacleData }) => {
+const Grid = ({ pathData, obstacleData, motionSetSegments }) => {
   const [obstacles, setObstacles] = React.useState(new Map());
   const [path, setPath] = React.useState(new Set());
+  const [runAnimation, setRunAnimation] = React.useState(false);
 
   React.useEffect(() => {
     if (obstacleData) {
@@ -56,44 +57,50 @@ const Grid = ({ pathData, obstacleData }) => {
     setObstacles(new Map());
   };
 
+  const handleRunAnimation = () => {
+    setRunAnimation(true);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.gridContainer}>
-        <table>
-          <tbody className={styles.grid}>
-            {grid.map((row, rowIdx) => {
-              return (
-                <tr key={rowIdx}>
-                  {row.map((node, nodeIdx) => {
-                    const [row, col] = node;
-                    return (
-                      <GridCell
-                        key={nodeIdx}
-                        col={col}
-                        row={row}
-                        isPath={path.has(`${col},${row}`)}
-                        onClick={handleOnCreateObstacle}
-                        obIdentifier={
-                          obstacles.get(`${col}, ${row}`)
-                            ? obstacles.get(`${col}, ${row}`).obNumber
-                            : null
-                        }
-                        obstacleFacing={
-                          obstacles.get(`${col}, ${row}`)
-                            ? obstacles.get(`${col}, ${row}`).facing
-                            : null
-                        }
-                      />
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className={styles.gridContainer}>
+          <table>
+            <tbody className={styles.grid}>
+              {grid.map((row, rowIdx) => {
+                return (
+                  <tr key={rowIdx}>
+                    {row.map((node, nodeIdx) => {
+                      const [row, col] = node;
+                      return (
+                        <GridCell
+                          key={nodeIdx}
+                          col={col}
+                          row={row}
+                          isPath={path.has(`${col},${row}`)}
+                          onClick={handleOnCreateObstacle}
+                          obIdentifier={
+                            obstacles.get(`${col}, ${row}`)
+                              ? obstacles.get(`${col}, ${row}`).obNumber
+                              : null
+                          }
+                          obstacleFacing={
+                            obstacles.get(`${col}, ${row}`)
+                              ? obstacles.get(`${col}, ${row}`).facing
+                              : null
+                          }
+                        />
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {/* <Robot animate={runAnimation} motionSetSegments={motionSetSegments} /> */}
+        </div>
         <GridLabel direction='row' />
         <GridLabel direction='col' />
-        <Robot />
       </div>
 
       <div className={styles.info}>
@@ -110,6 +117,9 @@ const Grid = ({ pathData, obstacleData }) => {
           </Button>
         )}
       </div>
+      <Button type='primary' onClick={handleRunAnimation}>
+        Run animation
+      </Button>
     </div>
   );
 };

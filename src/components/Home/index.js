@@ -10,6 +10,9 @@ const Home = () => {
   const [pathStr, setPathStr] = React.useState('');
   const [pathSet, setPathSet] = React.useState(new Set());
   const [obstacleMap, setObstacleMap] = React.useState(new Map());
+  const [motionSetSegments, setMotionSetSegments] = React.useState([]);
+
+  // console.log(motionSetSegments);
 
   const onClickShow = () => {
     try {
@@ -34,6 +37,8 @@ const Home = () => {
           return newObstacleMap;
         });
       }
+      const motionSetSegments = JSON.parse(jsonObj.motionSetSegments);
+      setMotionSetSegments(motionSetSegments);
 
       message.success('Path is shown on the grid');
     } catch (e) {
@@ -55,6 +60,7 @@ const Home = () => {
       <Grid
         pathData={pathSet}
         obstacleData={obstacleMap.size ? obstacleMap : null}
+        motionSetSegments={motionSetSegments}
       />
       <div>
         <Button
