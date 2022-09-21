@@ -8,25 +8,15 @@ const { TextArea } = Input;
 
 const Home = () => {
   const [pathStr, setPathStr] = React.useState('');
-  const [pathSet, setPathSet] = React.useState(new Set());
+  const [pathSet, setPathSet] = React.useState([]);
   const [obstacleMap, setObstacleMap] = React.useState(new Map());
-  const [motionSetSegments, setMotionSetSegments] = React.useState([]);
-
-  // console.log(motionSetSegments);
 
   const onClickShow = () => {
     try {
       const jsonObj = JSON.parse(pathStr);
       const pathGrids = JSON.parse(jsonObj.passingGrids);
 
-      for (const position of pathGrids) {
-        const [x, y] = position;
-        setPathSet((pathSet) => {
-          const newPathSet = new Set(pathSet);
-          newPathSet.add(`${x},${y}`);
-          return newPathSet;
-        });
-      }
+      setPathSet(pathGrids);
 
       const obstacleGrids = JSON.parse(jsonObj.obstacleGrids);
       for (const obstacle of obstacleGrids) {
@@ -37,8 +27,6 @@ const Home = () => {
           return newObstacleMap;
         });
       }
-      const motionSetSegments = JSON.parse(jsonObj.motionSetSegments);
-      setMotionSetSegments(motionSetSegments);
 
       message.success('Path is shown on the grid');
     } catch (e) {
@@ -60,7 +48,6 @@ const Home = () => {
       <Grid
         pathData={pathSet}
         obstacleData={obstacleMap.size ? obstacleMap : null}
-        motionSetSegments={motionSetSegments}
       />
       <div>
         <Button

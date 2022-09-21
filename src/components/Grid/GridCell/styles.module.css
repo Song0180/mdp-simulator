@@ -6,6 +6,7 @@
   cursor: pointer;
   justify-content: center;
   align-items: center;
+  transition: ease 200ms;
 }
 
 .startZone {

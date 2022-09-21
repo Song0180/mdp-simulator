@@ -10,10 +10,14 @@ import styles from './styles.module.css';
 const rowCount = 20;
 const colCount = 20;
 
-const Grid = ({ pathData, obstacleData, motionSetSegments }) => {
+const initialRobotGrid = [1, 1];
+
+const Grid = ({ pathData, obstacleData }) => {
   const [obstacles, setObstacles] = React.useState(new Map());
-  const [path, setPath] = React.useState(new Set());
+  const [path, setPath] = React.useState([]);
   const [runAnimation, setRunAnimation] = React.useState(false);
+  const [currentRobotGrid, setCurrentRobotGrid] =
+    React.useState(initialRobotGrid);
 
   React.useEffect(() => {
     if (obstacleData) {
@@ -28,6 +32,17 @@ const Grid = ({ pathData, obstacleData, motionSetSegments }) => {
       setPath(pathData);
     }
   }, [pathData]);
+
+  React.useEffect(() => {
+    if (runAnimation) {
+      for (let i = 0; i < path.length; i++) {
+        setTimeout(() => {
+          setCurrentRobotGrid(path[i]);
+        }, 600 * (i + 1));
+      }
+      setRunAnimation(false);
+    }
+  }, [path, runAnimation]);
 
   const grid = React.useMemo(() => {
     const initialGrid = [];
@@ -77,7 +92,13 @@ const Grid = ({ pathData, obstacleData, motionSetSegments }) => {
                           key={nodeIdx}
                           col={col}
                           row={row}
-                          isPath={path.has(`${col},${row}`)}
+                          isRobot={
+                            col === currentRobotGrid[0] &&
+                            row === currentRobotGrid[1]
+                          }
+                          isPath={path.some(
+                            (path) => path[0] === col && path[1] === row
+                          )}
                           onClick={handleOnCreateObstacle}
                           obIdentifier={
                             obstacles.get(`${col}, ${row}`)
@@ -97,7 +118,6 @@ const Grid = ({ pathData, obstacleData, motionSetSegments }) => {
               })}
             </tbody>
           </table>
-          {/* <Robot animate={runAnimation} motionSetSegments={motionSetSegments} /> */}
         </div>
         <GridLabel direction='row' />
         <GridLabel direction='col' />
