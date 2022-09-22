@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mdp-simulator/static/css/main.e3e955c8.css",
-    "main.js": "/mdp-simulator/static/js/main.78e485a8.js",
+    "main.css": "/mdp-simulator/static/css/main.671fe465.css",
+    "main.js": "/mdp-simulator/static/js/main.a09b4edc.js",
     "static/js/787.fdfc248b.chunk.js": "/mdp-simulator/static/js/787.fdfc248b.chunk.js",
     "index.html": "/mdp-simulator/index.html",
-    "main.e3e955c8.css.map": "/mdp-simulator/static/css/main.e3e955c8.css.map",
-    "main.78e485a8.js.map": "/mdp-simulator/static/js/main.78e485a8.js.map",
+    "main.671fe465.css.map": "/mdp-simulator/static/css/main.671fe465.css.map",
+    "main.a09b4edc.js.map": "/mdp-simulator/static/js/main.a09b4edc.js.map",
     "787.fdfc248b.chunk.js.map": "/mdp-simulator/static/js/787.fdfc248b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e3e955c8.css",
-    "static/js/main.78e485a8.js"
+    "static/css/main.671fe465.css",
+    "static/js/main.a09b4edc.js"
   ]
 }
