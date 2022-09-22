@@ -36,7 +36,7 @@ const Home = () => {
 
   const onClearPath = () => {
     setPathStr('');
-    setPathSet(new Set());
+    setPathSet([]);
     setObstacleMap(new Map());
     message.success('Path is cleared');
   };

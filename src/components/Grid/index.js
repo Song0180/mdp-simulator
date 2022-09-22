@@ -1,9 +1,8 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 
 import GridCell from './GridCell';
 import GridLabel from './GridLabel';
-// import Robot from '../Robot';
 
 import styles from './styles.module.css';
 
@@ -38,6 +37,9 @@ const Grid = ({ pathData, obstacleData }) => {
       for (let i = 0; i < path.length; i++) {
         setTimeout(() => {
           setCurrentRobotGrid(path[i]);
+          if (i === path.length - 1) {
+            message.success('Last obstacle is visited!');
+          }
         }, 600 * (i + 1));
       }
       setRunAnimation(false);
@@ -121,6 +123,14 @@ const Grid = ({ pathData, obstacleData }) => {
         </div>
         <GridLabel direction='row' />
         <GridLabel direction='col' />
+        <Button
+          type='primary'
+          onClick={handleRunAnimation}
+          disabled={path.length === 0}
+          className={styles.animateButton}
+        >
+          Run animation
+        </Button>
       </div>
 
       <div className={styles.info}>
@@ -137,9 +147,6 @@ const Grid = ({ pathData, obstacleData }) => {
           </Button>
         )}
       </div>
-      <Button type='primary' onClick={handleRunAnimation}>
-        Run animation
-      </Button>
     </div>
   );
 };
